@@ -6,7 +6,7 @@ from db import get_connection
 app = Flask(__name__)
 CORS(app)
 
-#Endpoint para el login
+#Login Endpoint
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -29,7 +29,19 @@ def login():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-# Endpoint para buscar personajes de Rick and Morty
+# Endpoint to get all characters
+@app.route("/rickmorty/characters")
+def get_all_characters():
+    url = "https://rickandmortyapi.com/api/character/"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        return jsonify(data)
+    else:
+        return jsonify({'error': 'Error al consumir la API externa'}), 500
+
+# Endpoint for search characters
 @app.route("/rickmorty/search/<name>")
 def rickandmortyAPI(name):
     url = f"https://rickandmortyapi.com/api/character/?name={name}"
