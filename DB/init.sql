@@ -1,0 +1,10 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(200) NOT NULL
+);
+
+-- Usuario de prueba --
+INSERT INTO users (username, password)
+VALUES ('admin', '1234'),
+    ('ram', 'ram123');
